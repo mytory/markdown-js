@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>md to html</title>
+	<style>
+	.wide-ta{
+		display: block;
+		width: 100%;
+		height: 200px;
+	}
+	</style>
+</head>
+<body>
+	<h1>My Markdown Source Editor</h1>
+  <textarea class="wide-ta" id="text-input" oninput="this.editor.update()"
+            rows="6" cols="60">Type **Markdown** here.</textarea>
+  <textarea class="wide-ta" id="html-source" cols="30" rows="10"></textarea>
+  <div id="preview"> </div>
+  <script src="lib/markdown.js"></script>
+  <script>
+    function Editor(input, source, preview) {
+      this.update = function () {
+      	var result = markdown.toHTML(input.value);
+        preview.innerHTML = result;
+        source.innerHTML = result;
+      };
+      input.editor = this;
+      this.update();
+    }
+    var $ = function (id) { return document.getElementById(id); };
+    new Editor($("text-input"), $("html-source"), $("preview"));
+  </script>
+</body>
+</html>
